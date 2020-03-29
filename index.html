@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <h1>Welcome to JavaScript</h1> -->
+</body>
+
+<script>
+
+//HOlds the name of a person
+// let name = '';
+
+// name = prompt("What is your name?");
+
+//string concatenation using the plus symbol
+// alert("Welcome " + name);
+
+//string
+// let firstName = "Jane";
+// let lastName = "Doe";
+
+//add two strings - Jane Doe
+// var fullName = firstName + ' ' + lastName;
+
+// document.write(fullName);
+// console.log(fullName);
+// alert("Fullname is " + fullName);
+
+//issue of scopes - local scope, global scope - remind me
+
+// //area of a circle - pi * radius * radius
+// const PI = 3.142; //constant because it doesnt change
+// //declared pi and initialised to 3.142
+
+// //take radius from user
+// let radius; //declared - but not initialised
+// //NaN = Not a Number
+
+// //prompt the user for the radius
+// radius = prompt("Enter radius of the circle. ");
+// console.log(typeof radius);
+// //convert radius to integer
+// radius = parseInt(radius);
+
+// console.log(typeof radius);
+
+
+// //calculate the area
+// // let area = PI * radius * radius; //or radius * radius
+
+// let area = Math.PI * Math.pow(radius, 2); //or radius * radius
+
+// document.write(area);
+// console.log(area);
+
+//accepts age
+// let age;
+
+// age = prompt("Enter age");
+// document.write("Age: " + age);
+
+// //validation - ensure the value is correct, accurate
+// //age > 0 - 
+// if(age < 0){
+//     document.write("Invalid Age");
+// } else {
+//     document.write("Valid Age");
+// }
+
+//a voting system - age must 18
+// const VOTING_AGE = 18; //constant age
+
+// //holds the age of the user
+// let userAge = prompt("Enter age");
+
+// document.write("Voting age " + VOTING_AGE);
+// document.write("User age " + userAge);
+
+// //user age is less than the voting age, we say cant vote
+// if(userAge < VOTING_AGE) {  
+//     document.write("Cannot vote");
+// } else {
+//     document.write("Can Vote");
+// }
+
+
+//Grading System
+//accepts score from user
+//prints the grade to the screen
+// 45, print grade C, D etc
+
+// let userScore = prompt("Enter Score");
+
+// if(userScore >= 80) {
+//     alert("Grade A");
+// } else if(userScore >= 70) {
+//     alert("Grade B");
+// } else if(userScore >= 50) {
+//     alert("Grade C");
+// } else {
+//     alert("Ooops, failed.");
+// }
+
+
+//enter month number, ie 1 - Jan, 2 - Feb, 3 - March etc
+// let monthNumber = prompt("Enter month number: ");
+// //"1"
+// monthNumber = parseInt(monthNumber);
+// //1
+
+// switch(monthNumber) {
+//     case 1:
+//         document.write("January");
+//         break;
+//     case 2:
+//         document.write("February");
+//         break;
+//     case 3:
+//         document.write("March");
+//         break;
+//     default: 
+//         document.write("Does not exist");
+// }
+
+// if(monthNumber == 1) {
+//     document.write("January");
+// } else if(monthNumber == 2) {
+//     document.write("February");
+// } else {
+//     document.write("Does not exist");
+// }
+
+
+// let ageA = 5;
+// let ageB = "5";
+
+// let isTheSameAge = ageA == ageB;
+// console.log(typeof ageA, typeof ageB);
+
+// document.write(ageA == ageB);
+// document.write(ageA === ageB);
+
+//false - false
+// document.write(ageA != ageB);
+// document.write(ageA !== ageB);
+
+
+//var/let/const
+
+// let num1;
+// let num2;
+// let total;
+
+// num1 = prompt("Enter num 1");
+// num2 = prompt("Enter num 2");
+
+// total = sumAndMultiplyZ(num1, num2);
+
+// document.write(total);
+// console.log(total);
+
+// //functions - a group of logic
+// function sum(x, y) {
+//     return (parseInt(x) + parseInt(y));
+// }
+
+</script>
+</html>
