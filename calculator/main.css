@@ -1,0 +1,94 @@
+/*Fonts*/
+@font-face {
+    font-family: "Montserrat";
+    src: url("font/Montserrat-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat-Bold";
+    src: url("font/Montserrat-Bold.ttf") format("truetype");
+}
+
+html {
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+body {
+    background-color: gainsboro;
+    position: relative;
+}
+
+#notification {
+    position: absolute;
+    top: 20px;
+    right: -40px;
+    width: 240px;
+    /*height: 50px;*/
+    background-color: red;
+    padding: 5px;
+    color: #ffffff;
+    display: none;
+}
+
+.mainContent {
+    max-width: 800px;
+    background-color: white;
+    margin: 50px auto;
+    padding: 16px;
+}
+
+
+.appTitle {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: Montserrat-Bold, sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+table {
+    margin: 10px auto;
+    font-size: 20px;
+}
+
+.inputTd {
+    background-color: white;
+    width: auto;
+    border-radius: 10%;
+    border: solid gainsboro 2px;
+}
+
+.inputTd:hover {
+    background-color: white;
+}
+
+td input {
+    font-family: Montserrat, sans-serif;
+    font-size: 22px;
+    color: grey;
+    border: none;
+    outline: none;
+    padding: 5px;
+}
+
+
+td {
+    cursor: pointer;
+    background-color: gainsboro;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+}
+
+td:hover {
+    background-color: aqua;
+}
+
+.clearTd {
+    margin-top: 5px;
+    border-radius: 10px;
+    width: auto;
+}

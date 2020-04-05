@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<!--Error notification -->
+<div id="notification">
+    <p>
+        <b>Error:</b>
+        <span id="errorMessage">Statement is not valid.</span>
+    </p>
+</div>
+
+<!-- Main Content -->
+<div class="mainContent">
+    <h3 class="appTitle">Calculator App</h3>
+    <table>
+        <tbody>
+        <tr>
+            <td colspan="4" class="inputTd">
+                <input type="text" id="screen" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>/</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>*</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>.</td>
+            <td>0</td>
+            <td>=</td>
+            <td>+</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="clearTd">
+                Clear
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    //classes and objects
+
+    //objects - core of js
+    //human being - object
+    //attributes - name, age, country, language etc
+
+    let person = {
+        name: "John Doe",
+        age: "33",
+        country: "US",
+        tel: '2345'
+    };
+
+    console.log(person);
+    //access the person details
+    console.log(person.age);
+    console.log(person.country);
+
+
+let persons = [
+    {
+        name: "John Doe",
+        age: "33",
+        country: "US",
+        phone: '34543',
+    },
+    {
+        names: "Jane Doe",
+        age: "34",
+        country: "US",
+        phone: '12345'
+    }
+];
+
+console.log(persons);
+
+//classes
+class Person {
+    name;
+    age;
+    country;
+    constructor(name, age, country) {
+        this.name = name;
+        this.age = age;
+        this.country = country;
+    }
+
+    sayName = function () {
+        console.log(this.name);
+    }
+
+}
+
+
+let personA = new Person("James Doe", "45", "UK");
+let personB = new Person("Junior Doe", "42", "UK");
+
+let name = personA.sayName();
+console.log(name);
+
+
+
+
+
+    /**
+     * Reference to screen
+     * @type {HTMLElement}
+     */
+    let screen = document.getElementById('screen');
+
+    //get the notification element
+    let notification = document.getElementById('notification');
+
+    //holds operand status
+    let isOperandSelected = false;
+
+    let buttons = document.getElementsByTagName('td');
+    // console.log(buttons);
+    //convert buttons into an array
+    let buttonsArray = Array.from(buttons);
+    //loop through the array
+    // console.log(buttonsArray);
+
+    for (let button of buttonsArray) {
+        // console.log(button.innerText);
+        //add event listener to each array button
+        button.addEventListener('click', handleEvent)
+    }
+
+    /**
+     * Handles button click events
+     * @param event
+     */
+    function handleEvent(event) {
+        console.log(event.target.innerText);
+        //get the value clicked
+        let value = event.target.innerText;
+        switch (value) {
+            case 'Clear':
+                clearScreen();
+                break;
+            case '=':
+                //do computation here
+                console.log('Equal to clicked');
+                break;
+            default:
+                if (isOperand(value) && isOperandSelected) {
+                    error("Operand already selected");
+                } else {
+                    //write to screen
+                    writeToScreen(value);
+                }
+
+        }
+    }
+
+    function error(message) {
+        //set error message
+        let errorMessageElement = document.getElementById('errorMessage');
+        errorMessageElement.innerText = message;
+
+        showNotification();
+
+        //hide the notification after 5 seconds
+        setTimeout(hideNotification, 5000)
+    }
+
+    function showNotification() {
+        //show the notification
+        notification.style.display = 'block';
+    }
+
+
+    function hideNotification() {
+        notification.style.display = 'none';
+    }
+
+
+    /**
+     * Writes to screen
+     * @param value
+     */
+    function writeToScreen(value) {
+        //if the value is an operand, then we set isOperandSelected to true
+        if (isOperand(value)) {
+            isOperandSelected = true;
+        }
+
+        screen.value += value;
+    }
+
+
+    /**
+     * +, -, /, *
+     * @param value
+     * @returns {boolean}
+     */
+    function isOperand(value) {
+        return value == '+' || value == '-' || value == '/' || value == '*';
+
+    }
+
+    /**
+     * Clears screen
+     */
+    function clearScreen() {
+        screen.value = '';
+    }
+
+</script>
+</body>
+</html>
