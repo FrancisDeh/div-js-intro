@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous"/>
+    <title>Todo App</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-lg-8 offset-lg-2 mt-5">
+        <div id="successAlert" style="display: none;" class="alert alert-success alert-dismissible fade show"
+             role="alert">
+            <strong>Success!</strong> <span id="successMessage"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="errorAlert" style="display: none;" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> <span id="errorMessage"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Add Todo
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" id="titleInput">
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 offset-lg-10">
+                        <button id="addBtn" class="btn btn-primary"><i class="fa fa-plus text-white"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 offset-lg-2 mt-5 mb-5">
+        <div class="card">
+            <div class="card-header">
+                Todo list
+                <span id="listCount" class="badge badge-primary badge-pill">0</span>
+
+            </div>
+            <div class="card-body">
+                <ul id="todoListContainer" class="list-group list-group-flush">
+                    <!--                    <li class="list-group-item">-->
+                    <!--                        Cras justo odio-->
+                    <!--                        <div style="float: right" class="btn-group" role="group" aria-label="Basic example">-->
+                    <!--                            <button type="button" class="btn btn-primary"><i class="fa fa-edit"></i> </button>-->
+                    <!--                            <button type="button" class="btn btn-success"><i class="fa fa-check-circle-o"></i></button>-->
+                    <!--                            <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> </button>-->
+                    <!--                        </div>-->
+                    <!--                    </li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+<script>
+    // Reference to todo input
+    let todoInput = document.getElementById('titleInput');
+    //reference to success alert
+    let successAlertElement = document.getElementById('successAlert');
+    let successAlertMessage = document.getElementById('successMessage');
+    //reference to error alert
+    let errorAlertElement = document.getElementById('errorAlert');
+    let errorAlertMessage = document.getElementById('errorMessage');
+    //reference to todo list container
+    let todoListContainer = document.getElementById('todoListContainer');
+    //reference to list count
+    let listCountElement = document.getElementById('listCount');
+
+
+    //array to hold todos
+    let todoList = [];
+
+
+    /**
+     * add click event listener to button
+     */
+    document.getElementById('addBtn').addEventListener('click', function (event) {
+        getTodoTitle();
+    });
+
+    //shows error message
+    function showError(message) {
+        //set the message
+        errorAlertMessage.innerText = message;
+        //show the alert
+        errorAlertElement.style.display = 'block';
+    }
+
+    //show success message
+    function showSuccess(message) {
+        //set the message
+        successAlertMessage.innerText = message;
+        //show the alert
+        successAlertElement.style.display = 'block';
+    }
+
+    /**
+     * Gets todo title
+     */
+    function getTodoTitle() {
+        //get the title from input field
+        let title = todoInput.value;
+
+        //ensure the title is not empty
+        if (title === '') {
+            showError('Title cannot be empty');
+            return;
+        }
+
+        //ensure that the todo item does not already exist
+        if (todoList.includes(title.toLowerCase())) {
+            showError(title + ' is already in the list');
+            return;
+        }
+
+        //add todo
+        addTodo(title);
+    }
+
+
+    //add todo
+    function addTodo(todo) {
+        //create element
+        createTodoListElement(todo);
+
+        //add todo to array
+        todoList.push(todo.toString().toLowerCase());
+
+        //update the todo list count
+        updateListCount();
+
+        //show success message
+        showSuccess(todo + ' has been added.');
+
+        //clear the todo input field
+        clearTodoInputField();
+    }
+
+    //creates list element for todo
+    function createTodoListElement(todo) {
+        //create an li element with todo
+        let li = document.createElement('li');
+        //add class to element
+        li.className = 'list-group-item';
+        //add the text
+        li.innerText = todo;
+
+        //attach the action buttons
+        li.appendChild(createActionButtons());
+        //attach todo element to parent container
+        todoListContainer.appendChild(li);
+    }
+
+
+    //create action buttons
+    function createActionButtons() {
+        // <div style="float: right" class="btn-group" role="group" aria-label="Basic example">
+        //         <button type="button" class="btn btn-primary"><i class="fa fa-edit"></i> </button>
+        //     <button type="button" class="btn btn-success"><i class="fa fa-check-circle-o"></i></button>
+        //     <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> </button>
+        //     </div>
+        //create the div element
+        let div = document.createElement('div');
+        div.style.float = 'right';
+        div.className = 'btn-group';
+
+        //create the edit button
+        let editButton = document.createElement('button');
+        editButton.className = 'btn btn-primary edit';
+        editButton.innerHTML = '<i class="fa fa-edit" onclick="editTodo(this)"></i>';
+        //create the delete button
+        let deleteButton = document.createElement('button');
+        deleteButton.className = 'btn btn-danger delete';
+        deleteButton.innerHTML = '<i class="fa fa-trash-o" onclick="deleteTodo(this)"></i>';
+        //create the complete button
+        let completeButton = document.createElement('button');
+        completeButton.className = 'btn btn-success complete';
+        completeButton.innerHTML = '<i class="fa fa-check-circle-o" onclick="completeTodo(this)"></i>';
+
+        //add buttons to the div element
+        div.appendChild(editButton);
+        div.appendChild(completeButton);
+        div.appendChild(deleteButton);
+
+        return div;
+
+    }
+
+    //update count for todo list
+    function updateListCount() {
+        //get array length
+        let count = todoList.length;
+        //display the count in the document
+        listCountElement.innerText = count;
+    }
+
+    //clear the todo input field
+    function clearTodoInputField() {
+        todoInput.value = '';
+    }
+
+    function editTodo(element) {
+        console.log(todoList);
+        console.log(element.parentElement.parentElement.parentElement);
+        let li = element.parentElement.parentElement.parentElement;
+
+        //get todo title
+        let todoTitle = li.innerText;
+        let newTitle = prompt('Edit title for ' + todoTitle, todoTitle);
+        if (newTitle === ''){
+            showError('Title cannot be empty');
+            return;
+        }
+
+        //ensure that the todo item does not already exist
+        if (todoList.includes(newTitle.toLowerCase())) {
+            showError(newTitle + ' is already in the list');
+            return;
+        }
+
+        li.innerText = newTitle;
+        //get position of todo in array
+        let positionOfTodo = todoList.indexOf(todoTitle.toLowerCase());
+        todoList[positionOfTodo] = newTitle;
+
+        //attach the action buttons
+        li.appendChild(createActionButtons());
+        showSuccess(todoTitle + ' updated to ' + newTitle);
+
+    }
+
+    //delete todo
+    function deleteTodo(element) {
+        let li = element.parentElement.parentElement.parentElement;
+        //get todo title
+        let todoTitle = li.innerText;
+
+        let canDelete = prompt('Are you sure you want to delete ' + todoTitle + '? Type y to delete');
+        if(canDelete.toLowerCase() !== 'y'){
+            return;
+        }
+
+        //get position of todo in array
+        let positionOfTodo = todoList.indexOf(todoTitle.toLowerCase());
+        //delete todo from array using position
+        todoList.splice(positionOfTodo, 1);
+        //update todo count
+        updateListCount();
+        showSuccess(todoTitle + ' deleted.');
+        todoListContainer.removeChild(li);
+    }
+
+    //complete a todo
+    function completeTodo(element) {
+        let li = element.parentElement.parentElement.parentElement;
+
+        //get todo title
+        let todoTitle = li.innerText;
+
+        let canComplete = prompt('Are you sure you want to complete ' + todoTitle + '? Type y to complete');
+        if(canComplete.toLowerCase() !== 'y'){
+            return;
+        }
+        showSuccess(todoTitle + ' completed.');
+        li.style.textDecoration = 'line-through';
+    }
+
+
+</script>
+</body>
+</html>
