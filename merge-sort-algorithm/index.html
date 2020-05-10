@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+function merge(leftA, rightA) {
+    var results= [], leftIndex= 0, rightIndex= 0;
+    console.log('left array', leftA);
+    console.log('right array', rightA);
+
+    while (leftIndex < leftA.length && rightIndex < rightA.length) { 
+        if( leftA[leftIndex] < rightA[rightIndex] ){
+            results.push(leftA[leftIndex++]); 
+            console.log('current left index', leftIndex);
+        } else {
+            results.push(rightA[rightIndex++]);
+            console.log('current right index', rightIndex);
+        }
+    }
+ 
+       var leftRemains = leftA.slice(leftIndex),
+       rightRemains = rightA.slice(rightIndex);
+
+       console.log('left remains', leftRemains);
+       console.log('right remains', rightRemains);
+
+       var results = results.concat(leftRemains).concat(rightRemains);
+       console.log('concatenated result', results);
+       return results;
+    
+}
+
+
+        function mergeSort(array) {
+            if(array.length < 2) {
+                return array;
+            }
+
+            var midpoint = Math.floor((array.length) / 2),
+            leftArray = array.slice(0, midpoint),
+            rightArray = array.slice(midpoint);
+
+            console.log(midpoint, leftArray, rightArray);
+            var mergedArray = merge( mergeSort(leftArray), mergeSort(rightArray));
+            console.log('merged array', mergedArray);
+            return mergedArray;
+        }
+
+     var sortedArray =   mergeSort([6,1,23, 4,2,3]);
+     console.log('sorted array', sortedArray);
+    </script>
+</body>
+</html>
