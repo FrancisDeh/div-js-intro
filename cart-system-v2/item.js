@@ -2,10 +2,9 @@
  * Item Class
  */
 class Item {
-    constructor(name, price, quantity) {
+    constructor(name, price) {
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
     }
 
     get getName () {
@@ -16,7 +15,4 @@ class Item {
         return this.price;
     }
 
-    get getQuantity () {
-        return this.quantity;
-    }
 }
